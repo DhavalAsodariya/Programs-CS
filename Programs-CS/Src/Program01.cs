@@ -34,99 +34,99 @@ namespace Programs_CS.Src
 
             Console.ReadLine();
         }
-    }
 
-    internal class A : IProperty
-    {
-        public A()
+        internal class A : IProperty
         {
-            Console.WriteLine("A's constructor called");
-        }
-
-        public int id
-        {
-            get
+            public A()
             {
-                return 1;
+                Console.WriteLine("A's constructor called");
             }
 
-            set
+            public int id
             {
-                throw new NotImplementedException();
-            }
-        }
+                get
+                {
+                    return 1;
+                }
 
-        public virtual string Name // inheritaed interface property that can be able to override in sub class and inheritaced by define as virtual
-        {
-            get
-            {
-                return "A's Name";
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void Do()
-        {
-            Console.WriteLine("A's Do() method called");
-        }
-
-        public virtual void Does()  // method that can be able to override in sub class
-        {
-            Console.WriteLine("A's Does() method called");
-        }
-
-        public void Dont() // hide A's Do() method inheritance
-        {
-            Console.WriteLine("B's Dont() method called");
-        }
-    }
-
-    internal class B : A, IProperty // IProperty already defined in A class
-    {
-        public B()
-        {
-            Console.WriteLine("B's constructor called");
-        }
-
-        public override string Name
-        {
-            get
-            {
-                return "B's Name";
+                set
+                {
+                    throw new NotImplementedException();
+                }
             }
 
-            set
+            public virtual string Name // inheritaed interface property that can be able to override in sub class and inheritaced by define as virtual
             {
-                throw new NotImplementedException();
+                get
+                {
+                    return "A's Name";
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public void Do()
+            {
+                Console.WriteLine("A's Do() method called");
+            }
+
+            public virtual void Does()  // method that can be able to override in sub class
+            {
+                Console.WriteLine("A's Does() method called");
+            }
+
+            public void Dont() // hide A's Do() method inheritance
+            {
+                Console.WriteLine("B's Dont() method called");
             }
         }
 
-        public void Do() // hide A's Do() method inheritance
+        internal class B : A, IProperty // IProperty already defined in A class
         {
-            base.Do(); // call A's Do() method
-            Console.WriteLine("B's Do() method called");
+            public B()
+            {
+                Console.WriteLine("B's constructor called");
+            }
+
+            public override string Name
+            {
+                get
+                {
+                    return "B's Name";
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public void Do() // hide A's Do() method inheritance
+            {
+                base.Do(); // call A's Do() method
+                Console.WriteLine("B's Do() method called");
+            }
+
+            public override void Does() // override A's Does()method
+            {
+                Console.WriteLine("B's Does() method called");
+            }
         }
 
-        public override void Does() // override A's Does()method
+        internal interface IProperty : IRoot
         {
-            Console.WriteLine("B's Does() method called");
+            int id { get; set; }
+            string Name { get; set; }
+            // virtual string Address { get; set; } // interface does not support virtual keyword
         }
-    }
 
-    internal interface IProperty : IRoot
-    {
-        int id { get; set; }
-        string Name { get; set; }
-        // virtual string Address { get; set; } // interface does not support virtual keyword
-    }
-
-    internal interface IRoot
-    {
-        void Do();
-        void Dont();
-    }
+        internal interface IRoot
+        {
+            void Do();
+            void Dont();
+        }
+    }    
 }

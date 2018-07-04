@@ -40,93 +40,94 @@ namespace Programs_CS.Src
             });
         }
 
-    }
-
-    internal interface IFile
-    {
-        string FileName { get; set; }
-        string Extension { get; set; }
-        string FilePath { get; set; }
-        long Length { get; set; }
-        DateTime CreatedDate { get; set; }
-        DateTime ModifiedDate { get; set; }
-    }
-
-    internal enum FileType
-    {
-        Picture = 1,
-        Video = 2
-    }
-
-    internal class Picture : File, IFile
-    {
-        public string FileName { get; set; }
-        public string Extension { get; set; }
-        public string FilePath { get; set; }
-        public long Length { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-
-        public string Camera { get; set; }
-        public int ISO { get; set; }
-        public int Resolution { get; set; }
-
-        internal override void Display(IFile file)
+        internal interface IFile
         {
-            Picture video = file as Picture;
-            Console.WriteLine("\nFile Type: Picture");
-            Console.WriteLine("FileName: " + video.FileName);
-            Console.WriteLine("Extension: " + video.Extension);
-            Console.WriteLine("Length: " + video.Length);
-            Console.WriteLine("CreatedDate: " + video.CreatedDate);
-            Console.WriteLine("ModifiedDate: " + video.ModifiedDate);
-            Console.WriteLine("Camera: " + video.Camera);
-            Console.WriteLine("ISO: " + video.ISO);
-            Console.WriteLine("Resolution: " + video.Resolution);
+            string FileName { get; set; }
+            string Extension { get; set; }
+            string FilePath { get; set; }
+            long Length { get; set; }
+            DateTime CreatedDate { get; set; }
+            DateTime ModifiedDate { get; set; }
         }
-    }
 
-    internal class Video : File, IFile
-    {
-        public string FileName { get; set; }
-        public string Extension { get; set; }
-        public string FilePath { get; set; }
-        public long Length { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        public int FramePerSecond { get; set; }
-        public int BItRate { get; set; }
-
-        internal override void Display(IFile file)
+        internal enum FileType
         {
-            Video video = file as Video;
-            Console.WriteLine("\nFile Type: Video");
-            Console.WriteLine("FileName: " + video.FileName);
-            Console.WriteLine("Extension: " + video.Extension);
-            Console.WriteLine("Length: " + video.Length);
-            Console.WriteLine("CreatedDate: " + video.CreatedDate);
-            Console.WriteLine("ModifiedDate: " + video.ModifiedDate);
-            Console.WriteLine("FramePerSecond: " + video.FramePerSecond);
-            Console.WriteLine("BItRate: " + video.BItRate);
+            Picture = 1,
+            Video = 2
         }
-    }
 
-    internal abstract class File
-    {
-        internal static File GetObject(FileType fileType)
+        internal class Picture : File, IFile
         {
-            switch (fileType)
+            public string FileName { get; set; }
+            public string Extension { get; set; }
+            public string FilePath { get; set; }
+            public long Length { get; set; }
+            public DateTime CreatedDate { get; set; }
+            public DateTime ModifiedDate { get; set; }
+
+            public string Camera { get; set; }
+            public int ISO { get; set; }
+            public int Resolution { get; set; }
+
+            internal override void Display(IFile file)
             {
-                case FileType.Picture:
-                    return new Picture();
-                case FileType.Video:
-                    return new Video();
-                default:
-                    return null;
+                Picture video = file as Picture;
+                Console.WriteLine("\nFile Type: Picture");
+                Console.WriteLine("FileName: " + video.FileName);
+                Console.WriteLine("Extension: " + video.Extension);
+                Console.WriteLine("Length: " + video.Length);
+                Console.WriteLine("CreatedDate: " + video.CreatedDate);
+                Console.WriteLine("ModifiedDate: " + video.ModifiedDate);
+                Console.WriteLine("Camera: " + video.Camera);
+                Console.WriteLine("ISO: " + video.ISO);
+                Console.WriteLine("Resolution: " + video.Resolution);
             }
         }
 
-        internal abstract void Display(IFile file);
+        internal class Video : File, IFile
+        {
+            public string FileName { get; set; }
+            public string Extension { get; set; }
+            public string FilePath { get; set; }
+            public long Length { get; set; }
+            public DateTime CreatedDate { get; set; }
+            public DateTime ModifiedDate { get; set; }
+            public int FramePerSecond { get; set; }
+            public int BItRate { get; set; }
 
+            internal override void Display(IFile file)
+            {
+                Video video = file as Video;
+                Console.WriteLine("\nFile Type: Video");
+                Console.WriteLine("FileName: " + video.FileName);
+                Console.WriteLine("Extension: " + video.Extension);
+                Console.WriteLine("Length: " + video.Length);
+                Console.WriteLine("CreatedDate: " + video.CreatedDate);
+                Console.WriteLine("ModifiedDate: " + video.ModifiedDate);
+                Console.WriteLine("FramePerSecond: " + video.FramePerSecond);
+                Console.WriteLine("BItRate: " + video.BItRate);
+            }
+        }
+
+        internal abstract class File
+        {
+            internal static File GetObject(FileType fileType)
+            {
+                switch (fileType)
+                {
+                    case FileType.Picture:
+                        return new Picture();
+                    case FileType.Video:
+                        return new Video();
+                    default:
+                        return null;
+                }
+            }
+
+            internal abstract void Display(IFile file);
+
+        }
     }
+
+    
 }
